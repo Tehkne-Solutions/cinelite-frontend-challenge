@@ -1,0 +1,121 @@
+/* O card será um link */
+.cardLink {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Compact mode for MovieRow */
+.compact {
+    width: 160px;
+    height: 240px;
+}
+
+/* O container principal do artigo */
+.movieCard {
+    /* Estilo base: Fundo secundário do tema (branco no claro, cinza escuro no escuro) */
+    background-color: var(--color-background-secondary);
+    border-radius: 8px;
+    overflow: hidden; /* Garante que a imagem com bordas arredondadas não saia do container */
+    
+    /* Sombra para destaque */
+    box-shadow: var(--shadow-default); 
+    
+    /* Transição suave para o efeito hover e mudança de tema */
+    transition: transform 0.2s, box-shadow 0.2s; 
+    
+    /* Layout flexível: poster em cima, info embaixo */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Garante que todos os cards na mesma linha tenham a mesma altura */
+}
+
+/* Efeito de Mouse-Over (Interatividade) */
+.movieCard:hover {
+    transform: translateY(-5px); /* Efeito de 'levitação' */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Poster (Imagem) */
+.poster {
+    width: 100%;
+    height: auto; /* Mantém a proporção */
+    min-height: 250px; /* Altura mínima para cards incompletos */
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+}
+
+/* Informações do filme */
+.info {
+    padding: var(--space-md);
+    flex-grow: 1; /* Permite que este container use o espaço restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empurra o rating para baixo, se necessário */
+}
+
+/* Título */
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    /* Limita o texto a duas linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-text-primary);
+}
+
+/* Poster Wrapper and Rating Badge */
+.posterWrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 150%; /* 2:3 aspect ratio for movie posters */
+    overflow: hidden;
+}
+
+.poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.ratingBadge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: var(--color-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.cardLink:hover .ratingBadge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.star {
+    font-size: 0.8rem;
+}
+
+.vote {
+    color: #fff;
+}
