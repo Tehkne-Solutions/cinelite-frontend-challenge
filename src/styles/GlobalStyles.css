@@ -1,0 +1,113 @@
+/* ------------------------------------------- */
+/* 1. Reset CSS Básico e Fontes */
+/* ------------------------------------------- */
+
+/* Importe uma fonte moderna (Ex: Poppins do Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box; /* O box model mais fácil de trabalhar */
+  margin: 0;
+  padding: 0;
+}
+
+/* Garante que o elemento root do React não adicione espaçamento */
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  /* Faz a transição de cores suave entre os modos */
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  /* Aplica as variáveis CSS definidas no :root ou .dark-theme */
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+}
+
+/* ------------------------------------------- */
+/* 2. Paleta de Cores e Variáveis (NOVA IDENTIDADE: Ciano/Azul Marinho) */
+/* ------------------------------------------- */
+
+/* Definições de cores base (Modo Claro Padrão) */
+:root {
+  /* Cores Principais (Azul Profundo) */
+  --color-primary: #2453ff; /* Azul Profundo, excelente contraste */
+  --color-secondary: #1836a7; /* Azul Escuro para hover/acento */
+  
+  /* Cores de Fundo e Texto (Modo Claro) */
+  --color-background-primary: #ffffff; /* Fundo principal claro */
+  --color-background-secondary: #f0f2f5; /* Fundo de card/elemento claro */
+  --color-text-primary: #1a2340; /* Azul escuro para texto principal */
+  --color-text-secondary: #4b5a7a; /* Azul acinzentado para texto secundário */
+  --color-border: #dbe2ef; /* Borda azul clara */
+  --color-hover: #e6e9f8; /* Hover azul claro */
+
+  /* Tamanhos e Sombras */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 8px;
+  --shadow-default: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌙 Modo Escuro (Dark Mode) - Base Profissional */
+.dark-mode {
+  /* Fundos Escuros (Azul Marinho / Preto Sutil) */
+  --color-background-primary: #0a0e14; /* Fundo principal: Preto Azulado (mais profissional que #121212) */
+  --color-background-secondary: #161e27; /* Fundo de card/elemento: Cinza Azulado */
+  
+  /* Textos Clientes */
+  --color-text-primary: #ffffff; /* Texto branco puro */
+  --color-text-secondary: #a3b3cc; /* Cinza-azul sutil */
+  
+  /* Interações */
+  --color-border: #343a40;
+  --color-hover: #2d3845; /* Cor de hover escura */
+  --shadow-default: 0 4px 10px rgba(0, 0, 0, 0.5); 
+}
+
+/* ------------------------------------------- */
+/* 4. Estilos de Links e Títulos */
+/* ------------------------------------------- */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  /* Usa a cor secundária mais escura, mantendo a coesão do ciano */
+  color: var(--color-secondary); 
+}
+
+h1, h2, h3 {
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+}
+
+/* Layout Principal */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0;
+  /* Removido max-width para permitir full-bleed */
+  margin: 0;
+  width: 100%;
+}
