@@ -1,0 +1,145 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    /* Removido max-width para permitir full-bleed */
+    margin: 0;
+    width: 100%;
+    padding: var(--space-lg);
+    flex-grow: 1;
+    position: relative;
+}
+
+/* ------------------------------------------- */
+/* NOVO: Estilo para o modo Dashboard (Seções) */
+/* ------------------------------------------- */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-xl);
+    /* Removido padding lateral para permitir full-bleed do Hero */
+    padding: 0;
+    position: relative;
+}
+
+/* Classe para conteúdo que precisa de padding */
+.contentWithPadding {
+    padding: 0 var(--space-lg);
+}
+
+/* Adiciona uma transição suave entre dashboard e modo de busca */
+.dashboard, .searchResults {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation delays for staggered fade-in */
+.delay1 { animation-delay: 0.1s; }
+.delay2 { animation-delay: 0.2s; }
+.delay3 { animation-delay: 0.3s; }
+.delay4 { animation-delay: 0.4s; }
+
+/* Ajuste do grid para mobile */
+@media (max-width: 600px) {
+    .dashboard {
+        padding-top: var(--space-md);
+        gap: var(--space-lg);
+    }
+    
+    .contentTitle {
+        font-size: 1.4rem;
+        padding: 0 var(--space-md);
+    }
+    
+    /* Reduz os delays em mobile para feedback mais rápido */
+    .delay1 { animation-delay: 0.05s; }
+    .delay2 { animation-delay: 0.1s; }
+    .delay3 { animation-delay: 0.15s; }
+    .delay4 { animation-delay: 0.2s; }
+}
+/* Fim da seção .dashboard */
+/* ------------------------------------------- */
+
+
+/* Estilo do Título do Conteúdo Principal (Usado para Populares ou Resultados) */
+.contentTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: var(--space-xl) 0 var(--space-lg) 0;
+    padding: 0 var(--space-lg);
+}
+
+
+/* ------------------------------------------- */
+/* Grid Principal de Filmes */
+/* ------------------------------------------- */
+.grid {
+    display: grid;
+    /* Padrão desktop: 5 colunas */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: var(--space-lg);
+    padding: 0 var(--space-lg);
+}
+
+/* ------------------------------------------- */
+/* Responsividade */
+/* ------------------------------------------- */
+
+/* Tablet (768px a 1024px) */
+@media (max-width: 1024px) {
+    .grid {
+        /* 4 colunas */
+        grid-template-columns: repeat(4, 1fr); 
+    }
+}
+
+/* Mobile (abaixo de 768px) */
+@media (max-width: 768px) {
+    .container {
+        /* Removido padding lateral para permitir full-bleed no mobile */
+        padding: 0;
+    }
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    .contentTitle {
+        font-size: 1.4rem;
+        padding: 0;
+        text-align: center;
+    }
+    .grid {
+        /* 2 colunas para mobile-first */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: var(--space-md);
+        padding: 0;
+    }
+}
+
+.loading, .error, .noResults {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: var(--space-xl);
+    color: var(--color-text-secondary);
+}
+
+.error {
+    color: red;
+}

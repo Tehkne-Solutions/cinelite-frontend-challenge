@@ -1,0 +1,118 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  color: #fff;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-default);
+}
+
+.overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(20,30,60,0.7) 0%, rgba(20,30,60,0.3) 60%, rgba(20,30,60,0.9) 100%);
+  border-radius: var(--border-radius-lg);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-xl);
+  max-width: 600px;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+}
+
+.heroDesc {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-md);
+  color: #e0e6f8;
+}
+
+.heroPitch {
+  font-size: 1rem;
+  margin-bottom: var(--space-lg);
+  color: #c7d4f8;
+}
+
+.heroBtn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: var(--border-radius-lg);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-default);
+  transition: background 0.2s, color 0.2s;
+}
+.heroBtn:hover {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+/* Skeleton Loader Styles */
+.heroSkeleton {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  background: #e6e9f8;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: flex-end;
+}
+.skeletonBg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, #e6e9f8 25%, #f0f2f5 50%, #e6e9f8 75%);
+  animation: skeleton-loading 1.2s infinite linear;
+  border-radius: var(--border-radius-lg);
+}
+.skeletonContent {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-xl);
+  width: 100%;
+  max-width: 600px;
+}
+.skeletonTitle {
+  width: 70%;
+  height: 40px;
+  background: #dbe2ef;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.skeletonDesc {
+  width: 90%;
+  height: 20px;
+  background: #dbe2ef;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.skeletonBtn {
+  width: 40%;
+  height: 32px;
+  background: #dbe2ef;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}

@@ -1,0 +1,17 @@
+.skeleton {
+  background: linear-gradient(90deg, #e6e9f8 25%, #f0f2f5 50%, #e6e9f8 75%);
+  animation: skeleton-loading 1.2s infinite linear;
+  display: inline-block;
+  min-width: 40px;
+  min-height: 20px;
+  opacity: 0.7;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}

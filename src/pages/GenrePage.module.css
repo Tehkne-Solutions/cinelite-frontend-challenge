@@ -1,0 +1,51 @@
+.genrePage {
+    padding: 2rem;
+}
+
+.genreHeader {
+    margin-bottom: 2rem;
+}
+
+.genreHeader h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.movieCount {
+    font-size: 1rem;
+    color: #666;
+    margin-left: 1rem;
+}
+
+.moviesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.loadingSpinner {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.errorContainer {
+    text-align: center;
+    color: #dc3545;
+    padding: 2rem;
+    font-size: 1.2rem;
+}
+
+.noResults {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    font-size: 1.2rem;
+}

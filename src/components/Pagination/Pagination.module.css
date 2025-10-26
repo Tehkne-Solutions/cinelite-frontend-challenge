@@ -1,0 +1,52 @@
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: var(--space-xl) 0;
+    flex-wrap: wrap;
+    padding: 0 var(--space-md);
+}
+
+/* 📱 Ajuste para Telas Pequenas (Smartphones) */
+@media (max-width: 600px) {
+    .paginationContainer {
+        gap: 4px;
+    }
+    
+    .pageButton {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+}
+
+.pageButton {
+    background-color: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.9rem;
+}
+
+.pageButton:hover:not(:disabled):not(.activePage) {
+    background-color: var(--color-hover);
+}
+
+.pageButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.activePage {
+    background-color: var(--color-primary);
+    color: white; 
+    border-color: var(--color-primary);
+    font-weight: bold;
+}
+
+.activePage:hover {
+    background-color: var(--color-primary);
+}
