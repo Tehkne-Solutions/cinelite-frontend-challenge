@@ -102,6 +102,8 @@ h1, h2, h3 {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 0;
 }
 
 .main-content {
@@ -110,4 +112,13 @@ h1, h2, h3 {
   /* Removido max-width para permitir full-bleed */
   margin: 0;
   width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Garante que dropdowns e modais tenham prioridade máxima */
+.dropdown-portal,
+[data-portal="dropdown"] {
+  z-index: 999999 !important;
+  position: fixed !important;
 }

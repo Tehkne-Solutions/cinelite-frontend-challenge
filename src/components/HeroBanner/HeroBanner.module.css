@@ -92,7 +92,7 @@
     width: 100%;
     animation: fadeInUp 0.9s ease-out both;
     animation-delay: 0.16s;
-    z-index: 100000;
+    z-index: 100;
 }
 
 .searchForm {
@@ -102,15 +102,20 @@
 }
 
 .searchDropdown {
-    background: white;
+    background: var(--color-background-primary, white);
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     z-index: 999999;
+    position: fixed;
     transform: translateZ(0);
     will-change: transform;
     max-height: 400px;
     overflow-y: auto;
+    pointer-events: auto;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 1px solid var(--color-border, #eee);
 }
 
 .searchDropdown ul {
@@ -131,13 +136,13 @@
     display: flex;
     align-items: center;
     padding: 16px;
-    color: #1a1a1a;
+    color: var(--color-text-primary, #1a1a1a);
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .searchDropdown a:hover {
-    background-color: #f8f9fa;
+    background-color: var(--color-hover, #f8f9fa);
 }
 
 .resultThumb {
@@ -170,13 +175,13 @@
 .loadingResults {
     padding: 16px;
     text-align: center;
-    color: #666;
+    color: var(--color-text-secondary, #666);
 }
 
 .viewAllResults {
     padding: 12px;
     text-align: center;
-    background: #f5f5f5;
+    background: var(--color-background-secondary, #f5f5f5);
 }
 
 .viewAllButton {

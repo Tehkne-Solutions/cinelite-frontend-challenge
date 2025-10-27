@@ -27,7 +27,7 @@ function HeroBanner() {
     const navigate = useNavigate();
 
     /**
-     * Efeito para fechar dropdown ao clicar fora
+     * Efeito para fechar dropdown ao clicar fora e atualizar posição
      */
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -36,12 +36,12 @@ function HeroBanner() {
             }
         };
 
-        const handleScroll = () => {
+        const updateDropdownPosition = () => {
             if (showDropdown && searchContainerRef.current) {
                 const rect = searchContainerRef.current.getBoundingClientRect();
                 setDropdownPosition({
-                    top: rect.bottom + window.scrollY + 8,
-                    left: rect.left + window.scrollX,
+                    top: rect.bottom + 8,
+                    left: rect.left,
                     width: rect.width
                 });
             }
@@ -49,14 +49,16 @@ function HeroBanner() {
 
         if (showDropdown) {
             document.addEventListener('mousedown', handleClickOutside);
-            window.addEventListener('scroll', handleScroll);
-            window.addEventListener('resize', handleScroll);
+            window.addEventListener('scroll', updateDropdownPosition, { passive: true });
+            window.addEventListener('resize', updateDropdownPosition, { passive: true });
+            // Atualiza posição imediatamente
+            updateDropdownPosition();
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleScroll);
+            window.removeEventListener('scroll', updateDropdownPosition);
+            window.removeEventListener('resize', updateDropdownPosition);
         };
     }, [showDropdown]);
 
@@ -78,12 +80,12 @@ function HeroBanner() {
                     const data = await searchMovies(searchTerm, 1);
                     setSearchResults(data.results.slice(0, 5)); // Exibe apenas os 5 primeiros resultados
                     
-                    // Calcula a posição do dropdown
+                    // Calcula a posição inicial do dropdown
                     if (searchContainerRef.current) {
                         const rect = searchContainerRef.current.getBoundingClientRect();
                         setDropdownPosition({
-                            top: rect.bottom + window.scrollY + 8,
-                            left: rect.left + window.scrollX,
+                            top: rect.bottom + 8,
+                            left: rect.left,
                             width: rect.width
                         });
                     }
@@ -160,6 +162,7 @@ function HeroBanner() {
                         {showDropdown && searchResults.length > 0 && createPortal(
                             <div 
                                 className={styles.searchDropdown}
+                                data-portal="dropdown"
                                 style={{
                                     position: 'fixed',
                                     top: `${dropdownPosition.top}px`,
