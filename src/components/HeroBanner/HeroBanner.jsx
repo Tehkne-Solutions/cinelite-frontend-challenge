@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { searchMovies } from '../../services/api';
 import bannerImage from '../../assets/images/cinelite_hero_banner.jpg';
@@ -18,10 +19,46 @@ function HeroBanner() {
     const [searchResults, setSearchResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
     
-    // Referência para controlar o debounce da pesquisa
+    // Referência para controlar o debounce da pesquisa e posição do input
     const searchTimeoutRef = useRef(null);
+    const searchContainerRef = useRef(null);
     const navigate = useNavigate();
+
+    /**
+     * Efeito para fechar dropdown ao clicar fora
+     */
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        };
+
+        const handleScroll = () => {
+            if (showDropdown && searchContainerRef.current) {
+                const rect = searchContainerRef.current.getBoundingClientRect();
+                setDropdownPosition({
+                    top: rect.bottom + window.scrollY + 8,
+                    left: rect.left + window.scrollX,
+                    width: rect.width
+                });
+            }
+        };
+
+        if (showDropdown) {
+            document.addEventListener('mousedown', handleClickOutside);
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleScroll);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+        };
+    }, [showDropdown]);
 
     /**
      * Efeito para busca em tempo real com debounce
@@ -40,6 +77,17 @@ function HeroBanner() {
                 try {
                     const data = await searchMovies(searchTerm, 1);
                     setSearchResults(data.results.slice(0, 5)); // Exibe apenas os 5 primeiros resultados
+                    
+                    // Calcula a posição do dropdown
+                    if (searchContainerRef.current) {
+                        const rect = searchContainerRef.current.getBoundingClientRect();
+                        setDropdownPosition({
+                            top: rect.bottom + window.scrollY + 8,
+                            left: rect.left + window.scrollX,
+                            width: rect.width
+                        });
+                    }
+                    
                     setShowDropdown(true);
                 } catch (error) {
                     setSearchResults([]);
@@ -94,7 +142,7 @@ function HeroBanner() {
                             encontrar o que assistir hoje. Tudo em um só lugar, no CineLite.
                     </p>
 
-                    <div className={styles.searchContainer}>
+                    <div className={styles.searchContainer} ref={searchContainerRef}>
                         <form onSubmit={handleSearch} className={styles.searchForm} role="search" aria-label="Buscar filmes">
                             <input
                                 type="search"
@@ -109,8 +157,16 @@ function HeroBanner() {
                             </button>
                         </form>
                         
-                        {showDropdown && searchResults.length > 0 && (
-                            <div className={styles.searchDropdown}>
+                        {showDropdown && searchResults.length > 0 && createPortal(
+                            <div 
+                                className={styles.searchDropdown}
+                                style={{
+                                    position: 'fixed',
+                                    top: `${dropdownPosition.top}px`,
+                                    left: `${dropdownPosition.left}px`,
+                                    width: `${dropdownPosition.width}px`
+                                }}
+                            >
                                 {isLoading ? (
                                     <div className={styles.loadingResults}>Buscando...</div>
                                 ) : (
@@ -150,7 +206,8 @@ function HeroBanner() {
                                         </li>
                                     </ul>
                                 )}
-                            </div>
+                            </div>,
+                            document.body
                         )}
                     </div>
                 </div>

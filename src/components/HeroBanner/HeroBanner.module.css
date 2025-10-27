@@ -92,6 +92,7 @@
     width: 100%;
     animation: fadeInUp 0.9s ease-out both;
     animation-delay: 0.16s;
+    z-index: 100000;
 }
 
 .searchForm {
@@ -101,15 +102,15 @@
 }
 
 .searchDropdown {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    right: 0;
     background: white;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    z-index: 1000;
+    z-index: 999999;
+    transform: translateZ(0);
+    will-change: transform;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .searchDropdown ul {
