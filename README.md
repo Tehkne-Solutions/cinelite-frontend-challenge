@@ -2,38 +2,78 @@
 
 CineLite é uma aplicação web para explorar e descobrir filmes, construída com React e integrada com a API do TMDB (The Movie Database).
 
-## Funcionalidades
+## 🚀 Links da Aplicação
 
-### Navegação e Visualização
+- **Repositório GitHub**: [https://github.com/Tehkne-Solutions/cinelite-frontend-challenge.git](https://github.com/Tehkne-Solutions/cinelite-frontend-challenge.git)
+- **Deploy Online**: [https://cinelite-frontend-challenge.vercel.app](https://cinelite-frontend-challenge.vercel.app)
 
-### Busca e Filtros
+## 📋 Sobre o Projeto
 
-### Detalhes do Filme
+Este projeto foi desenvolvido como parte do **Desafio Dev Frontend Hit**, implementando uma aplicação completa de catálogo de filmes com as seguintes tecnologias:
 
+- **React 18** com Hooks
+- **React Router** para navegação
+- **CSS Modules** para estilização
+- **Vite** como bundler
+- **API TMDB** para dados dos filmes
+- **Vercel** para deploy automático
 
-## Rotas Disponíveis
+## ✨ Funcionalidades Implementadas
 
-- `/` - Página inicial com filmes populares
-- `/movie/:id` - Página de detalhes do filme
-- `/search?q=termo` - Página de resultados de busca
-- `/genre/:id` - Página de filmes por gênero
+### 🏠 Página Inicial (Dashboard)
+- Hero Banner com busca em tempo real
+- Seções horizontais de filmes (Próximos Lançamentos, Mais Votados, Ação)
+- Grid de filmes populares com paginação
+- Modo escuro/claro
 
-## Como Executar
+### 🔍 Sistema de Busca
+- Busca em tempo real com debounce
+- Dropdown de resultados instantâneos
+- Página dedicada de resultados com paginação
+- Navegação por URL com query parameters
 
+### 🎬 Detalhes do Filme
+- Informações completas do filme
+- Poster, sinopse, avaliação, data de lançamento
+- Botão de voltar integrado
+- Layout responsivo
 
-1. Clone o repositório
+### 🎨 Interface e UX
+- Design responsivo (mobile-first)
+- Tema claro/escuro
+- Animações suaves
+- Loading states e skeleton screens
+- Scroll to top automático
+
+## 🛠️ Como Executar Localmente
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/Tehkne-Solutions/cinelite-frontend-challenge.git
+cd cinelite-frontend-challenge/cinelite-app
+```
+
+2. Instale as dependências:
 ```bash
 npm install
 ```
 
-3. Execute o projeto em desenvolvimento:
+3. Configure as variáveis de ambiente:
+```bash
+# Crie um arquivo .env na raiz do projeto cinelite-app
+# Adicione sua chave da API do TMDB:
+VITE_TMDB_API_KEY=sua_chave_aqui
+VITE_TMDB_BASE_URL=https://api.themoviedb.org/3
+```
+
+4. Execute o projeto em desenvolvimento:
 ```bash
 npm run dev
 ```
 
-4. Acesse `http://localhost:5173` no navegador
+5. Acesse `http://localhost:5173` no navegador
 
-## Estrutura do Projeto
+## 🗂️ Estrutura do Projeto
 
 ```
 src/
@@ -45,50 +85,56 @@ src/
   └── assets/        # Imagens e outros recursos
 ```
 
-## Componentes Principais
+## 📱 Responsividade
 
-### Páginas
-- `HomePage`: Lista de filmes populares
-- `DetailsPage`: Informações detalhadas do filme
-- `SearchPage`: Resultados de busca
-- `GenrePage`: Filmes filtrados por gênero
+A aplicação foi desenvolvida com abordagem mobile-first:
+- **Mobile**: Layout em 2 colunas, navegação otimizada
+- **Tablet**: Layout em 4 colunas, elementos intermediários
+- **Desktop**: Layout em 5 colunas, experiência completa
 
-### Componentes
-- `Header`: Navegação principal e busca
-- `MovieCard`: Card de visualização do filme
-- `MovieList`: Grid de filmes
-- `SearchBar`: Input de busca com navegação
+## 🎯 Requisitos Atendidos
 
-## Recursos da API
+✅ **Funcionalidades Obrigatórias**:
+- [x] Listagem de filmes populares
+- [x] Busca por filmes
+- [x] Detalhes do filme
+- [x] Design responsivo
+- [x] Integração com API TMDB
 
-O projeto utiliza a API do TMDB para:
-- Listar filmes populares
-- Buscar filmes por título
-- Filtrar por gênero
-- Obter detalhes do filme
-- Listar gêneros disponíveis
+✅ **Funcionalidades Extras Implementadas**:
+- [x] Tema claro/escuro
+- [x] Busca em tempo real
+- [x] Paginação
+- [x] Loading states
+- [x] Seções categorizadas
+- [x] Scroll to top
+- [x] Tratamento de erros
 
-## Contribuição
+## 🔧 Tecnologias Utilizadas
 
-Para contribuir com o projeto:
+- **Frontend**: React 18, React Router DOM
+- **Estilização**: CSS Modules, CSS Variables
+- **Build**: Vite
+- **Deploy**: Vercel
+- **API**: TMDB (The Movie Database)
+- **Controle de Versão**: Git/GitHub
 
-1. Fork o repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+## 🚀 Deploy e Integração Contínua
 
-## Fase 15 — Correções e melhorias
+O projeto está configurado com deploy automático na Vercel:
+- **URL de Produção**: [https://cinelite-frontend-challenge.vercel.app](https://cinelite-frontend-challenge.vercel.app)
+- Deploy automático a cada push na branch `main`
+- Variáveis de ambiente configuradas na Vercel
+- Build otimizado para produção
 
-Esta seção resume as alterações realizadas durante a Fase 15 do projeto:
+## 📝 Histórico de Desenvolvimento
 
-- Atualizado o `HeroBanner` para usar uma imagem estática local em `src/assets/images/cinelite_hero_banner.jpg` com overlay escuro para melhorar legibilidade.
-- Melhorias no `Logo` (suporte a variantes de tamanho e tema claro) para uso em banners.
-- Removido aninhamento incorreto de links em `MovieRow`/`MovieCard` para evitar erros de hidratação no React.
-- Implementado `ScrollToTopButton` (componente minimalista e discreto) integrado em `App.jsx`.
-- Ajustes na `DetailsPage`: botão voltar minimalista posicionado no topo e melhorias de layout.
-- Criada a pasta `src/assets/images` para receber o banner estático.
+O projeto foi desenvolvido em fases incrementais:
+- **Fase 1-5**: Setup inicial e componentes base
+- **Fase 6-10**: Integração com API e funcionalidades core
+- **Fase 11-15**: Melhorias de UX e correções
+- **Fase 16-17**: Deploy e correções finais de usabilidade
 
-Observação: a imagem do banner deve estar disponível em `src/assets/images/cinelite_hero_banner.jpg` (ou com a extensão que você salvou). Se desejar alterar o nome do arquivo, atualize a importação em `src/components/HeroBanner/HeroBanner.jsx`.
+---
 
-Também foi adicionado um placeholder SVG em `public/placeholder-movie.svg` usado como fallback quando um poster não está disponível.
+**Nota**: Este projeto foi desenvolvido como parte de um desafio técnico, demonstrando habilidades em React, integração com APIs, design responsivo e deploy em produção.
