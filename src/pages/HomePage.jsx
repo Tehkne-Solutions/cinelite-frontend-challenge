@@ -12,7 +12,7 @@ import MovieCard from '../components/MovieCard';
 import Skeleton from '../components/Skeleton';
 import SearchBar from '../components/SearchBar/SearchBar';
 import useDebounce from '../hooks/useDebounce'; 
-import Pagination from '../components/Pagination/Pagination';
+
 // SideMenu e getGenres não são mais necessários aqui, pois foram movidos para App.jsx
 import MovieRow from '../components/MovieRow/MovieRow'; // NOVO
 import HeroBanner from '../components/HeroBanner';
@@ -27,14 +27,19 @@ function HomePage({ selectedGenre }) {
     const debouncedSearchTerm = useDebounce(searchTerm, 500); 
 
     const [currentPage, setCurrentPage] = useState(1); 
-    const [totalPages, setTotalPages] = useState(1); 
+    const [totalPages, setTotalPages] = useState(1);
+    const [isLoadingMore, setIsLoadingMore] = useState(false); 
     
     // Indica se a busca ou filtro está ativo
     const isSearchOrFilterActive = debouncedSearchTerm || selectedGenre > 0;
 
-    const fetchMovies = useCallback(async (pageToFetch = 1) => {
+    const fetchMovies = useCallback(async (pageToFetch = 1, isLoadMore = false) => {
         try {
-            setIsLoading(true);
+            if (isLoadMore) {
+                setIsLoadingMore(true);
+            } else {
+                setIsLoading(true);
+            }
             setError(null); 
 
             let data;
@@ -46,20 +51,27 @@ function HomePage({ selectedGenre }) {
             else if (selectedGenre > 0) {
                 data = await discoverMovies(selectedGenre, pageToFetch);
             }
-            // 3. Padrão: filmes populares (é usado apenas se o usuário navegar na paginação de populares)
+            // 3. Padrão: filmes populares
             else {
                 data = await getPopularMovies(pageToFetch);
             }
             
-            setMovies(data.results);
+            if (isLoadMore) {
+                setMovies(prev => [...prev, ...data.results]);
+            } else {
+                setMovies(data.results);
+            }
             setTotalPages(data.total_pages > 500 ? 500 : data.total_pages); 
             setCurrentPage(pageToFetch);
         } catch (err) {
             console.error("Erro ao carregar filmes:", err);
             setError(err.message);
-            setMovies([]); // Limpa a lista em caso de erro
+            if (!isLoadMore) {
+                setMovies([]);
+            }
         } finally {
             setIsLoading(false);
+            setIsLoadingMore(false);
         }
     }, [debouncedSearchTerm, selectedGenre]); 
 
@@ -70,10 +82,9 @@ function HomePage({ selectedGenre }) {
         fetchMovies(1);
     }, [fetchMovies, debouncedSearchTerm, selectedGenre]); 
     
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
-        fetchMovies(newPage); // Chama a busca com a nova página
-        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    const handleLoadMore = () => {
+        const nextPage = currentPage + 1;
+        fetchMovies(nextPage, true);
     };
 
     // Renderiza a visualização principal
@@ -103,12 +114,16 @@ function HomePage({ selectedGenre }) {
                     ))}
             </div>
 
-            {movies.length > 0 && totalPages > 1 && (
-                <Pagination 
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                />
+            {movies.length > 0 && currentPage < totalPages && (
+                <div className={styles.loadMoreContainer}>
+                    <button 
+                        className={styles.loadMoreButton}
+                        onClick={handleLoadMore}
+                        disabled={isLoadingMore}
+                    >
+                        {isLoadingMore ? 'Carregando...' : 'Carregar Mais'}
+                    </button>
+                </div>
             )}
         </>
     );

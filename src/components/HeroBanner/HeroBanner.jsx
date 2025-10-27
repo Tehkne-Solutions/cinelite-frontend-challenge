@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { searchMovies } from '../../services/api';
 import bannerImage from '../../assets/images/cinelite_hero_banner.jpg';
 import styles from './HeroBanner.module.css';
@@ -31,6 +31,10 @@ function HeroBanner() {
      */
     useEffect(() => {
         const handleClickOutside = (event) => {
+            // Não fecha se o clique foi em um link do dropdown
+            if (event.target.closest('[data-portal="dropdown"]')) {
+                return;
+            }
             if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
                 setShowDropdown(false);
             }
@@ -176,11 +180,10 @@ function HeroBanner() {
                                     <ul>
                                         {searchResults.map(movie => (
                                             <li key={movie.id}>
-                                                <a 
-                                                    href={`/movie/${movie.id}`}
+                                                <Link 
+                                                    to={`/movie/${movie.id}`}
                                                     onClick={(e) => {
-                                                        e.preventDefault();
-                                                        navigate(`/movie/${movie.id}`);
+                                                        e.stopPropagation();
                                                         setSearchTerm('');
                                                         setShowDropdown(false);
                                                     }}
@@ -196,7 +199,7 @@ function HeroBanner() {
                                                         <h3>{movie.title}</h3>
                                                         <span>{movie.release_date?.split('-')[0] || 'TBA'}</span>
                                                     </div>
-                                                </a>
+                                                </Link>
                                             </li>
                                         ))}
                                         <li className={styles.viewAllResults}>

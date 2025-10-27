@@ -143,3 +143,34 @@
 .error {
     color: red;
 }
+
+.loadMoreContainer {
+    display: flex;
+    justify-content: center;
+    margin: var(--space-xl) 0;
+    padding: 0 var(--space-lg);
+}
+
+.loadMoreButton {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--border-radius-lg);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 160px;
+}
+
+.loadMoreButton:hover:not(:disabled) {
+    background: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+.loadMoreButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
